@@ -20,6 +20,7 @@ Security Note: Zero API keys, passwords, or tokens are required or stored in thi
 """
 
 import os
+import sys
 import json
 import time
 from datetime import datetime
@@ -53,10 +54,10 @@ def load_mock_db(force_reload: bool = False):
             _DB_CACHE_TIME = now
             return _DB_CACHE
     except FileNotFoundError:
-        print(f"[ERROR] Database file not found at {DB_PATH}")
+        print(f"[ERROR] Database file not found at {DB_PATH}", file=sys.stderr)
         return {}
     except json.JSONDecodeError as e:
-        print(f"[ERROR] Corrupted JSON database at {DB_PATH}: {e}")
+        print(f"[ERROR] Corrupted JSON database at {DB_PATH}: {e}", file=sys.stderr)
         return _DB_CACHE or {}
 
 
@@ -67,11 +68,11 @@ def get_live_train_status(train_number: str) -> str:
     Fetches the live running status of an Indian Railways train.
     Returns train name, current station, status, next stop, and cancellation probability.
     """
-    print(f"[SYSTEM] Agent requested status for Train: {train_number}")
+    print(f"[SYSTEM] Agent requested status for Train: {train_number}", file=sys.stderr)
     
     mock_db = load_mock_db()
     
-    print("[SYSTEM] Executing Fallback Mock Database Query...")
+    print("[SYSTEM] Executing Fallback Mock Database Query...", file=sys.stderr)
     
     if train_number in mock_db:
         mock_record = mock_db[train_number]
@@ -97,7 +98,7 @@ def get_platform_info(train_number: str) -> str:
     Fetches the platform number, coach position, and arrival details for a given train.
     Useful when a passenger wants to know which platform their train will arrive on.
     """
-    print(f"[SYSTEM] Agent requested platform info for Train: {train_number}")
+    print(f"[SYSTEM] Agent requested platform info for Train: {train_number}", file=sys.stderr)
     
     mock_db = load_mock_db()
     
@@ -126,7 +127,7 @@ def get_delay_alerts(region: str = "all") -> str:
     Can filter by region: 'Northern Railways', 'Western Railways', 'Southern Railways',
     'Central Railways', or 'all' for all regions.
     """
-    print(f"[SYSTEM] Agent requested delay alerts for region: {region}")
+    print(f"[SYSTEM] Agent requested delay alerts for region: {region}", file=sys.stderr)
     
     mock_db = load_mock_db()
     alerts = mock_db.get("delay_alerts", [])
@@ -154,7 +155,7 @@ def get_station_food_options(station_code: str) -> str:
     Fetches available food stalls and ordering options at a given railway station.
     Station code should be the standard Indian Railways code (e.g., NDLS, BCT, HWH, MAS).
     """
-    print(f"[SYSTEM] Agent requested food options at station: {station_code}")
+    print(f"[SYSTEM] Agent requested food options at station: {station_code}", file=sys.stderr)
     
     mock_db = load_mock_db()
     stations = mock_db.get("stations", {})
@@ -184,7 +185,7 @@ def get_cab_booking_options(station_code: str) -> str:
     Returns list of cab providers and metro connectivity details.
     Station code should be the standard Indian Railways code (e.g., NDLS, BCT, HWH).
     """
-    print(f"[SYSTEM] Agent requested cab options at station: {station_code}")
+    print(f"[SYSTEM] Agent requested cab options at station: {station_code}", file=sys.stderr)
     
     mock_db = load_mock_db()
     stations = mock_db.get("stations", {})
@@ -215,7 +216,7 @@ def get_train_route(train_number: str) -> str:
     Fetches the complete route (list of stops) for a given train number.
     Returns all stations the train passes through in order.
     """
-    print(f"[SYSTEM] Agent requested route for Train: {train_number}")
+    print(f"[SYSTEM] Agent requested route for Train: {train_number}", file=sys.stderr)
     
     mock_db = load_mock_db()
     
@@ -236,5 +237,5 @@ def get_train_route(train_number: str) -> str:
 
 
 if __name__ == "__main__":
-    print("Starting Yatra Saarthi Transit MCP Server...", flush=True)
+    print("Starting Yatra Saarthi Transit MCP Server...", file=sys.stderr, flush=True)
     mcp.run()

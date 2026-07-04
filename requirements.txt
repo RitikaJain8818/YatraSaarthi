@@ -1,2 +1,6 @@
 ### Core MCP SDK
-mcp
+mcp
+
+### Official Google GenAI SDK (Gemini)
+google-genai
+

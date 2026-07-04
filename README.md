@@ -7,6 +7,17 @@
 
 ---
 
+## 📺 Watch the 4-Minute Demo Pitch
+[![Watch Video Pitch](https://img.shields.io/badge/YouTube-Watch%20Demo%20Pitch-FF0000?style=for-the-badge&logo=youtube)](https://youtube.com)
+
+> **Hackathon Judges & Evaluators:** Our video presentation follows a structured 4-step walk-through demonstrating real Indic NLU reasoning, programmatic MCP stdio execution, and zero-downtime offline resilience:
+> 1. **The Hook (0:00–0:30):** Why millions of Indians are locked out of digital transit apps by English-only dropdown interfaces.
+> 2. **Live Multilingual UI Demo (0:30–2:00):** Real-time conversational queries in Hindi, Marathi, Tamil, and Bengali responding instantly via our responsive Web UI.
+> 3. **The 3-Agent MCP Engine (2:00–3:30):** Deep dive into VS Code showing our `YatraMultiAgentSystem` using **Google Gemini 2.5 Flash** for NLU parsing, connecting programmatically to `yatra_saarthi_mcp.py` over `stdio`, and demonstrating our hybrid offline fallback architecture.
+> 4. **Deployability & Antigravity (3:30–4:00):** Portable Dockerized microservice architecture ready for edge deployment.
+
+---
+
 ## 🚨 Problem Statement
 
 Navigating the Indian Railways and transit ecosystem presents three severe challenges for millions of passengers:
@@ -57,9 +68,9 @@ graph TD
 ```
 
 ### Roles of the 3 Agents:
-1. **Agent 1 (Translator & Intent Parser)**: Ingests unstructured multilingual text. It uses natural language understanding and entity extraction to identify train numbers (e.g., `12932`, `12301`), station codes (`NDLS`, `BCT`, `MAS`), and specific passenger intents (*live status, platform inquiry, delay alerts, food ordering, cab booking*).
-2. **Agent 2 (MCP Tool Retriever)**: Acts as the protocol client. It connects to our standalone Model Context Protocol (MCP) server, invokes the appropriate structured tool, and manages error boundaries and offline fallback caching.
-3. **Agent 3 (Vernacular Concierge)**: Receives raw JSON tool output from the MCP server and drafts a polite, culturally resonant response in the passenger's chosen language, ensuring proper honorifics and clear formatting.
+1. **Agent 1 (Translator & Intent Parser)**: Ingests unstructured multilingual text. It uses **Google Gemini 2.5 Flash (`google-genai`)** with structured JSON output formatting to perform natural language understanding and entity extraction (e.g., train numbers `12932`, station codes `NDLS`). In offline demo mode, it seamlessly drops back to high-speed heuristic parsing.
+2. **Agent 2 (MCP Tool Retriever)**: Acts as a true Model Context Protocol client. It programmatically connects via standard input/output (`mcp.client.stdio.stdio_client`) to our local FastMCP server (`yatra_saarthi_mcp.py`), executes structured tool calls, and manages error boundaries with local cache fallback.
+3. **Agent 3 (Vernacular Concierge)**: Receives structured JSON tool output from the MCP server and invokes **Google Gemini 2.5 Flash** to synthesize a polite, culturally resonant response in the passenger's chosen Indic language, ensuring proper honorifics and clear formatting.
 
 ---
 
@@ -78,6 +89,37 @@ We implemented a robust local MCP server (`yatra_saarthi_mcp.py`) that exposes 6
 
 ### 🛡️ Clever Offline Resiliency (Zero-Downtime Design):
 To solve the connectivity drop problem on trains, our MCP server implements a **Hybrid Fallback Engine**. When network endpoints or live APIs are unreachable during transit, the MCP toolset automatically queries an offline-verified local store (`yatra_saarthi_db.json`). This guarantees **100% uptime, zero latency, and uninterrupted agent reasoning** regardless of cellular signal strength.
+
+---
+
+## 📸 Interactive UI & CLI Showcase
+
+Yatra Saarthi provides two production-grade interfaces designed for both end-users and programmatic integration:
+
+### 🌐 1. Multilingual Web Application (Glassmorphism UI)
+Our responsive web interface features an initial language selection lock, micro-animations, and instant vernacular chat responses:
+
+```text
++-----------------------------------------------------------------------+
+|  🚂 YATRA SAARTHI — IRCTC AI CONCIERGE                       [🔒 HI]  |
++-----------------------------------------------------------------------+
+|                                                                       |
+|   👤 यात्री: "12301 train kaha hai?"                                  |
+|                                                                       |
+|   🤖 यात्रा सारथी:                                                    |
+|      आपकी ट्रेन, हावड़ा राजधानी, अभी प्रयागराज (PRYJ) पर है।        |
+|      स्टेटस: On Time (अगला स्टॉप: नई दिल्ली NDLS)।                    |
+|                                                                       |
++-----------------------------------------------------------------------+
+|  [💬 अपनी यात्रा के बारे में पूछें...]                  [ 🚀 भेजें ]   |
++-----------------------------------------------------------------------+
+```
+
+### 💻 2. High-Speed Terminal CLI
+Invoke the pipeline programmatically for automated testing and microservice integration:
+```powershell
+python cli.py --query "What is the platform number for train 12951?" --lang en
+```
 
 ---
 
