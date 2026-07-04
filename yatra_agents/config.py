@@ -48,10 +48,10 @@ class SharedConfig:
             print("[SYSTEM] No GEMINI_API_KEY detected. Running in offline fallback heuristic mode.")
 
     def get_db(self):
-        """Load and cache the local offline transit database yatra_saarthi_db.json."""
+        """Load and cache the local offline transit database transit_db.json."""
         if self._db_cache is not None:
             return self._db_cache
-        db_path = os.path.join(self.root_dir, "yatra_saarthi_db.json")
+        db_path = os.path.join(self.root_dir, "transit_db.json")
         try:
             with open(db_path, "r", encoding="utf-8") as f:
                 self._db_cache = json.load(f)

@@ -13,7 +13,7 @@ Indian Railways data retrieval. It exposes 6 specialized tools to our multi-agen
 
 Clever Offline Resiliency (Zero-Downtime Design):
 When passengers travel through low-connectivity zones (tunnels, rural sectors) or during API outages,
-this server automatically switches to an offline-verified fallback cache (`yatra_saarthi_db.json`).
+this server automatically switches to an offline-verified fallback cache (`transit_db.json`).
 This guarantees 100% uptime and zero latency during live demonstrations and travel.
 
 Security Note: Zero API keys, passwords, or tokens are required or stored in this module.
@@ -30,7 +30,7 @@ from mcp.server.fastmcp import FastMCP
 mcp = FastMCP("YatraSaarthi_Transit_Engine")
 
 # Load Local Offline Database
-DB_PATH = os.path.join(os.path.dirname(__file__), "yatra_saarthi_db.json")
+DB_PATH = os.path.join(os.path.dirname(__file__), "transit_db.json")
 
 # In-memory cache for local database
 _DB_CACHE = None

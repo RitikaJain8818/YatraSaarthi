@@ -13,7 +13,7 @@
 > **Hackathon Judges & Evaluators:** Our video presentation follows a structured 4-step walk-through demonstrating real Indic NLU reasoning, programmatic MCP stdio execution, and zero-downtime offline resilience:
 > 1. **The Hook (0:00–0:30):** Why millions of Indians are locked out of digital transit apps by English-only dropdown interfaces.
 > 2. **Live Multilingual UI Demo (0:30–2:00):** Real-time conversational queries in Hindi, Marathi, Tamil, and Bengali responding instantly via our responsive Web UI.
-> 3. **The 3-Agent MCP Engine (2:00–3:30):** Deep dive into VS Code showing our `YatraMultiAgentSystem` using **Google Gemini 2.5 Flash** for NLU parsing, connecting programmatically to `yatra_saarthi_mcp.py` over `stdio`, and demonstrating our hybrid offline fallback architecture.
+> 3. **The 3-Agent MCP Engine (2:00–3:30):** Deep dive into VS Code showing our `YatraMultiAgentSystem` using **Google Gemini 2.5 Flash** for NLU parsing, connecting programmatically to `mcp_server.py` over `stdio`, and demonstrating our hybrid offline fallback architecture.
 > 4. **Deployability & Antigravity (3:30–4:00):** Portable Dockerized microservice architecture ready for edge deployment.
 
 ---
@@ -56,7 +56,7 @@ graph TD
 
     A1 -->|Normalized JSON Schema| A2
     A2 -->|"Tool Call: get_live_train_status('12301')"| M["🛠️ FastMCP Server<br>YatraSaarthi_Transit_Engine"]
-    M <-->|Reads Offline JSON Store| DB[("📁 yatra_saarthi_db.json<br>10 Trains, 8 Stations, Alerts")]
+    M <-->|Reads Offline JSON Store| DB[("📁 transit_db.json<br>10 Trains, 8 Stations, Alerts")]
     M -->|Structured Tool Result| A2
     A2 -->|Raw Transit Payload| A3
     A3 -->|"Localized Response<br>'आपकी ट्रेन हावड़ा राजधानी इलाहाबाद में है।'"| U
@@ -69,7 +69,7 @@ graph TD
 
 ### Roles of the 3 Agents:
 1. **Agent 1 (Translator & Intent Parser)**: Ingests unstructured multilingual text. It uses **Google Gemini 2.5 Flash (`google-genai`)** with structured JSON output formatting to perform natural language understanding and entity extraction (e.g., train numbers `12932`, station codes `NDLS`). In offline demo mode, it seamlessly drops back to high-speed heuristic parsing.
-2. **Agent 2 (MCP Tool Retriever)**: Acts as a true Model Context Protocol client. It programmatically connects via standard input/output (`mcp.client.stdio.stdio_client`) to our local FastMCP server (`yatra_saarthi_mcp.py`), executes structured tool calls, and manages error boundaries with local cache fallback.
+2. **Agent 2 (MCP Tool Retriever)**: Acts as a true Model Context Protocol client. It programmatically connects via standard input/output (`mcp.client.stdio.stdio_client`) to our local FastMCP server (`mcp_server.py`), executes structured tool calls, and manages error boundaries with local cache fallback.
 3. **Agent 3 (Vernacular Concierge)**: Receives structured JSON tool output from the MCP server and invokes **Google Gemini 2.5 Flash** to synthesize a polite, culturally resonant response in the passenger's chosen Indic language, ensuring proper honorifics and clear formatting.
 
 ---
@@ -79,7 +79,7 @@ graph TD
 A core innovation in Yatra Saarthi is our clever usage of the **Model Context Protocol (FastMCP)** to decouple AI reasoning from deterministic railway data retrieval.
 
 ### The 6 Transit Tools Exposed via MCP:
-We implemented a robust local MCP server (`yatra_saarthi_mcp.py`) that exposes 6 highly specific tools to our agent pipeline:
+We implemented a robust local MCP server (`mcp_server.py`) that exposes 6 highly specific tools to our agent pipeline:
 * `get_live_train_status(train_number)`: Returns running status, current station, next stop, and real-time cancellation risk percentage.
 * `get_platform_number(train_number)`: Returns expected arrival platform number and coach position display info.
 * `check_delay_alerts(region)`: Fetches active weather advisories, track maintenance alerts, and fog delays across railway zones.
@@ -88,7 +88,7 @@ We implemented a robust local MCP server (`yatra_saarthi_mcp.py`) that exposes 6
 * `get_station_directory()`: Returns a full mapping of major Indian railway junctions and their amenities.
 
 ### 🛡️ Clever Offline Resiliency (Zero-Downtime Design):
-To solve the connectivity drop problem on trains, our MCP server implements a **Hybrid Fallback Engine**. When network endpoints or live APIs are unreachable during transit, the MCP toolset automatically queries an offline-verified local store (`yatra_saarthi_db.json`). This guarantees **100% uptime, zero latency, and uninterrupted agent reasoning** regardless of cellular signal strength.
+To solve the connectivity drop problem on trains, our MCP server implements a **Hybrid Fallback Engine**. When network endpoints or live APIs are unreachable during transit, the MCP toolset automatically queries an offline-verified local store (`transit_db.json`). This guarantees **100% uptime, zero latency, and uninterrupted agent reasoning** regardless of cellular signal strength.
 
 ---
 

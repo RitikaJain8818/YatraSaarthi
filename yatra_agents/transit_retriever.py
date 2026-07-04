@@ -2,7 +2,7 @@
 Yatra Saarthi — Transit Retriever
 =================================
 Acts as the protocol client. Connects programmatically over stdio via mcp.ClientSession
-to the standalone FastMCP server (`yatra_saarthi_mcp.py`), invoking structured tools and
+to the standalone FastMCP server (`mcp_server.py`), invoking structured tools and
 managing error boundaries with local cache fallback.
 """
 
@@ -28,7 +28,7 @@ class TransitRetriever:
             from mcp import ClientSession, StdioServerParameters
             from mcp.client.stdio import stdio_client
 
-            server_script = os.path.join(self.config.root_dir, "yatra_saarthi_mcp.py")
+            server_script = os.path.join(self.config.root_dir, "mcp_server.py")
             server_params = StdioServerParameters(
                 command=sys.executable,
                 args=[server_script],

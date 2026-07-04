@@ -41,4 +41,4 @@ docker run -it yatra-saarthi --query "Where is train 12215?" --lang en
 
 No PII Leakage: The agent strips personal user data before querying the external MCP server.
 
-Failover Design: The MCP server is backed by a local JSON database (yatra_saarthi_db.json), guaranteeing 100% uptime during demonstrations and zero API latency.
+Failover Design: The MCP server is backed by a local JSON database (transit_db.json), guaranteeing 100% uptime during demonstrations and zero API latency.

@@ -14,7 +14,7 @@ Security Note: Zero API keys or secrets required. Runs entirely offline via mock
 
 import sys
 import argparse
-from yatra_saarthi_agent import YatraMultiAgentSystem
+from agent import YatraMultiAgentSystem
 
 def main():
     if hasattr(sys.stdout, 'reconfigure'):
