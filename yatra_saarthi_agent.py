@@ -34,6 +34,19 @@ class YatraMultiAgentSystem:
 
     def _init_llm_client(self):
         self.llm_client = None
+        # Automatically load .env file from project root if present
+        env_path = os.path.join(os.path.dirname(__file__), ".env")
+        if os.path.exists(env_path):
+            try:
+                with open(env_path, "r", encoding="utf-8") as f:
+                    for line in f:
+                        line = line.strip()
+                        if line and not line.startswith("#") and "=" in line:
+                            k, v = line.split("=", 1)
+                            os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+            except Exception as e:
+                print(f"[SYSTEM] Could not parse .env file: {e}")
+
         api_key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
         if api_key:
             try:
