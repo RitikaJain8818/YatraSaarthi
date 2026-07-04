@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yatra Saarthi | AI Transit Concierge</title>
+    <meta name="description" content="Yatra Saarthi — Your multi-lingual AI-powered Indian Railways transit concierge. Check train status, platform info, and more in Hindi, Marathi, Tamil, Telugu, Bengali, and English.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <div class="chat-container splash-active" id="chat-container">
+
+        <!-- Language Selection Splash Screen -->
+        <div class="lang-splash" id="lang-splash">
+            <div class="splash-icon">🚂</div>
+            <div class="splash-title">Yatra Saarthi</div>
+            <div class="splash-subtitle">AI-Powered Transit Concierge</div>
+            <div class="splash-prompt" id="splash-prompt">Choose your language / अपनी भाषा चुनें</div>
+            <div class="lang-grid" id="lang-grid">
+                <!-- Populated dynamically by app.js -->
+            </div>
+            <div class="splash-footer">
+                Powered by Multi-Agent AI &middot; Built for Indian Railways
+                <span class="saffron-bar"></span>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="chat-header">
+            <div class="header-content">
+                <span class="header-icon">🚂</span>
+                <div class="header-text">
+                    <h1 id="header-title">Yatra Saarthi</h1>
+                    <p>
+                        <span id="header-subtitle">AI-Powered Transit Concierge</span>
+                        <span class="ai-badge"><span class="ai-dot"></span> AI</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Language Selector Indicator (Locked after initial selection) -->
+        <div class="lang-selector" id="lang-selector" aria-label="Selected language">
+            <!-- Populated dynamically by app.js -->
+        </div>
+
+        <!-- Chat Area -->
+        <div class="chat-area" id="chat-area">
+            <!-- Welcome message and chat bubbles inserted dynamically -->
+        </div>
+
+        <!-- Nudge Chips -->
+        <div class="nudge-bar" id="nudge-bar">
+            <!-- Populated dynamically by app.js -->
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-area">
+            <div class="input-wrapper">
+                <input
+                    id="user-input"
+                    class="input-field"
+                    type="text"
+                    autocomplete="off"
+                    aria-label="Type your query"
+                >
+                <button id="send-btn" class="send-btn" aria-label="Send message" onclick="handleSend()">
+                    <span class="send-arrow">➤</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="chat-footer">
+            Powered by <strong>Yatra Saarthi</strong> Multi-Agent AI &middot; Built for Indian Railways
+        </div>
+
+    </div>
+
+    <!-- Modular Frontend Application Scripts -->
+    <script src="js/i18n.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

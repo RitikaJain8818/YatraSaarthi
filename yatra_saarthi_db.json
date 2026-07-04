@@ -1,0 +1,214 @@
+{
+    "12932": {
+        "name": "Ahmedabad Double Decker Express",
+        "status": "Running Late by 15 mins",
+        "current_station": "Surat (ST)",
+        "probability_cancel": "Low (12%)",
+        "next_stop": "Bharuch (BH)",
+        "platform": 3,
+        "coach_position": "Engine from Platform End",
+        "pantry_car": "C5",
+        "route": ["Mumbai Central (BCT)", "Borivali (BVI)", "Surat (ST)", "Bharuch (BH)", "Vadodara (BRC)", "Ahmedabad (ADI)"]
+    },
+    "12215": {
+        "name": "Delhi Garibrath Express",
+        "status": "On Time",
+        "current_station": "Vadodara (BRC)",
+        "probability_cancel": "High (85%)",
+        "next_stop": "Ratlam (RTM)",
+        "platform": 5,
+        "coach_position": "Engine from Main Gate Side",
+        "pantry_car": "C8",
+        "route": ["Bandra Terminus (BDTS)", "Surat (ST)", "Vadodara (BRC)", "Ratlam (RTM)", "Kota (KOTA)", "Delhi Sarai Rohilla (DEE)"]
+    },
+    "12124": {
+        "name": "Deccan Queen",
+        "status": "Running Late by 45 mins",
+        "current_station": "Lonavala (LNL)",
+        "probability_cancel": "Medium (40%)",
+        "next_stop": "Dadar (DR)",
+        "platform": 1,
+        "coach_position": "Engine from North End",
+        "pantry_car": "C4",
+        "route": ["Pune Junction (PUNE)", "Lonavala (LNL)", "Karjat (KJT)", "Dadar (DR)", "CSMT Mumbai (CSMT)"]
+    },
+    "12951": {
+        "name": "Mumbai Rajdhani",
+        "status": "On Time",
+        "current_station": "Kota (KOTA)",
+        "probability_cancel": "Low (2%)",
+        "next_stop": "New Delhi (NDLS)",
+        "platform": 6,
+        "coach_position": "Engine from Ajmeri Gate Side",
+        "pantry_car": "C7",
+        "route": ["Mumbai Central (BCT)", "Vadodara (BRC)", "Ratlam (RTM)", "Kota (KOTA)", "New Delhi (NDLS)"]
+    },
+    "12301": {
+        "name": "Howrah Rajdhani Express",
+        "status": "Running Late by 30 mins",
+        "current_station": "Allahabad (PRYJ)",
+        "probability_cancel": "Low (8%)",
+        "next_stop": "Mughal Sarai (MGS)",
+        "platform": 2,
+        "coach_position": "Engine from West End",
+        "pantry_car": "C6",
+        "route": ["New Delhi (NDLS)", "Kanpur (CNB)", "Allahabad (PRYJ)", "Mughal Sarai (MGS)", "Dhanbad (DHN)", "Howrah (HWH)"]
+    },
+    "12627": {
+        "name": "Karnataka Express",
+        "status": "On Time",
+        "current_station": "Raichur (RC)",
+        "probability_cancel": "Low (5%)",
+        "next_stop": "Solapur (SUR)",
+        "platform": 4,
+        "coach_position": "Engine from South End",
+        "pantry_car": "C9",
+        "route": ["Bengaluru (SBC)", "Dharmavaram (DMM)", "Guntakal (GTL)", "Raichur (RC)", "Solapur (SUR)", "Pune (PUNE)", "Dadar (DR)", "New Delhi (NDLS)"]
+    },
+    "12622": {
+        "name": "Tamil Nadu Express",
+        "status": "Running Late by 60 mins",
+        "current_station": "Vijayawada (BZA)",
+        "probability_cancel": "Medium (35%)",
+        "next_stop": "Warangal (WL)",
+        "platform": 7,
+        "coach_position": "Engine from East End",
+        "pantry_car": "C5",
+        "route": ["Chennai Central (MAS)", "Perambur (PER)", "Gudur (GDR)", "Vijayawada (BZA)", "Warangal (WL)", "Nagpur (NGP)", "Bhopal (BPL)", "Agra (AGC)", "New Delhi (NDLS)"]
+    },
+    "12859": {
+        "name": "Gitanjali Express",
+        "status": "On Time",
+        "current_station": "Nagpur (NGP)",
+        "probability_cancel": "Low (3%)",
+        "next_stop": "Bhusaval (BSL)",
+        "platform": 2,
+        "coach_position": "Engine from Platform 2 Side",
+        "pantry_car": "C6",
+        "route": ["Howrah (HWH)", "Tatanagar (TATA)", "Rourkela (ROU)", "Nagpur (NGP)", "Bhusaval (BSL)", "Manmad (MMR)", "Kalyan (KYN)", "CSMT Mumbai (CSMT)"]
+    },
+    "12723": {
+        "name": "Telangana Express",
+        "status": "Running Late by 20 mins",
+        "current_station": "Balharshah (BPQ)",
+        "probability_cancel": "Low (10%)",
+        "next_stop": "Nagpur (NGP)",
+        "platform": 3,
+        "coach_position": "Engine from North End",
+        "pantry_car": "C4",
+        "route": ["Hyderabad (HYB)", "Secunderabad (SC)", "Kazipet (KZJ)", "Balharshah (BPQ)", "Nagpur (NGP)", "Bhopal (BPL)", "Jhansi (JHS)", "Agra (AGC)", "New Delhi (NDLS)"]
+    },
+    "12839": {
+        "name": "Chennai Mail (HWH-MAS)",
+        "status": "On Time",
+        "current_station": "Kharagpur (KGP)",
+        "probability_cancel": "Low (6%)",
+        "next_stop": "Bhubaneswar (BBS)",
+        "platform": 5,
+        "coach_position": "Engine from South End",
+        "pantry_car": "C7",
+        "route": ["Howrah (HWH)", "Kharagpur (KGP)", "Bhubaneswar (BBS)", "Visakhapatnam (VSKP)", "Vijayawada (BZA)", "Chennai Central (MAS)"]
+    },
+
+    "stations": {
+        "NDLS": {
+            "name": "New Delhi",
+            "code": "NDLS",
+            "platforms": 16,
+            "food_stalls": ["Haldiram's", "Comesum", "Jan Aahar", "IRCTC Food Court", "Domino's"],
+            "facilities": ["WiFi", "Waiting Room AC", "Cloak Room", "Medical Aid", "Escalator", "Lift"],
+            "cab_services": ["Ola", "Uber", "Meru Cabs", "Delhi Metro Feeder"],
+            "retiring_rooms": true
+        },
+        "BCT": {
+            "name": "Mumbai Central",
+            "code": "BCT",
+            "platforms": 8,
+            "food_stalls": ["IRCTC Food Plaza", "Comesum", "Jan Aahar", "Subway"],
+            "facilities": ["WiFi", "Waiting Room AC", "Cloak Room", "Medical Aid"],
+            "cab_services": ["Ola", "Uber", "Meru Cabs", "Mumbai Metro Feeder"],
+            "retiring_rooms": true
+        },
+        "HWH": {
+            "name": "Howrah Junction",
+            "code": "HWH",
+            "platforms": 23,
+            "food_stalls": ["IRCTC Food Court", "Jan Aahar", "Haldiram's", "Local Stalls"],
+            "facilities": ["WiFi", "Waiting Room AC", "Cloak Room", "Medical Aid", "Escalator"],
+            "cab_services": ["Ola", "Uber", "Local Taxi Stand"],
+            "retiring_rooms": true
+        },
+        "MAS": {
+            "name": "Chennai Central",
+            "code": "MAS",
+            "platforms": 17,
+            "food_stalls": ["IRCTC Food Court", "Saravana Bhavan", "Jan Aahar", "A2B"],
+            "facilities": ["WiFi", "Waiting Room AC", "Cloak Room", "Medical Aid", "Escalator", "Lift"],
+            "cab_services": ["Ola", "Uber", "Chennai Metro Feeder"],
+            "retiring_rooms": true
+        },
+        "SBC": {
+            "name": "Bengaluru City Junction",
+            "code": "SBC",
+            "platforms": 10,
+            "food_stalls": ["IRCTC Food Court", "Comesum", "MTR", "Jan Aahar"],
+            "facilities": ["WiFi", "Waiting Room AC", "Cloak Room", "Medical Aid"],
+            "cab_services": ["Ola", "Uber", "Namma Metro Feeder", "Rapido"],
+            "retiring_rooms": true
+        },
+        "SC": {
+            "name": "Secunderabad Junction",
+            "code": "SC",
+            "platforms": 10,
+            "food_stalls": ["IRCTC Food Court", "Jan Aahar", "Paradise Biryani", "Comesum"],
+            "facilities": ["WiFi", "Waiting Room AC", "Cloak Room", "Medical Aid"],
+            "cab_services": ["Ola", "Uber", "Hyderabad Metro Feeder"],
+            "retiring_rooms": true
+        },
+        "PUNE": {
+            "name": "Pune Junction",
+            "code": "PUNE",
+            "platforms": 6,
+            "food_stalls": ["IRCTC Food Court", "Jan Aahar", "Comesum"],
+            "facilities": ["WiFi", "Waiting Room AC", "Cloak Room", "Medical Aid"],
+            "cab_services": ["Ola", "Uber", "Pune Metro Feeder"],
+            "retiring_rooms": true
+        },
+        "ADI": {
+            "name": "Ahmedabad Junction",
+            "code": "ADI",
+            "platforms": 12,
+            "food_stalls": ["IRCTC Food Court", "Jan Aahar", "Honest Restaurant"],
+            "facilities": ["WiFi", "Waiting Room AC", "Cloak Room", "Medical Aid", "Escalator"],
+            "cab_services": ["Ola", "Uber", "Ahmedabad Metro Feeder"],
+            "retiring_rooms": true
+        }
+    },
+
+    "delay_alerts": [
+        {
+            "region": "Northern Railways",
+            "message": "Fog advisory: Trains in Delhi-Lucknow sector may experience 30-60 min delays",
+            "severity": "warning",
+            "affected_trains": ["12301", "12951"]
+        },
+        {
+            "region": "Western Railways",
+            "message": "Track maintenance between Surat-Bharuch, trains may face 15-20 min delays",
+            "severity": "info",
+            "affected_trains": ["12932", "12215"]
+        },
+        {
+            "region": "Southern Railways",
+            "message": "Signal failure at Vijayawada Junction, expect delays of 45-90 mins",
+            "severity": "critical",
+            "affected_trains": ["12622", "12839"]
+        },
+        {
+            "region": "Central Railways",
+            "message": "Heavy rain warning in Mumbai-Pune section, services may be affected",
+            "severity": "warning",
+            "affected_trains": ["12124", "12627"]
+        }
+    ]
+}
