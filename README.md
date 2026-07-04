@@ -35,20 +35,25 @@ graph TD
     classDef mcp fill:#F59E0B,stroke:#B45309,color:#fff,font-weight:bold;
     classDef db fill:#6366F1,stroke:#4338CA,color:#fff,font-weight:bold;
 
-    U[👤 Passenger Query<br>'12301 train kaha hai?'] ::: user -->|Raw Vernacular Query| A1
+    U["👤 Passenger Query<br>'12301 train kaha hai?'"] -->|Raw Vernacular Query| A1
 
-    subgraph Orchestration Engine [Yatra Saarthi 3-Agent Pipeline]
-        A1[🧠 AGENT 1: Translator & Intent Parser<br>• Detects Indic Dialects<br>• Extracts Train # & Station Code<br>• Normalizes Intent Schema] ::: agent
-        A2[⚙️ AGENT 2: MCP Tool Retriever<br>• Connects to Local FastMCP Server<br>• Routes Structured Tool Requests<br>• Handles Offline Resiliency] ::: agent
-        A3[🗣️ AGENT 3: Vernacular Concierge<br>• Synthesizes Raw JSON Data<br>• Formats Culturally Polite Tone<br>• Outputs in Target Language] ::: agent
+    subgraph Orchestration Engine ["Yatra Saarthi 3-Agent Pipeline"]
+        A1["🧠 AGENT 1: Translator & Intent Parser<br>• Detects Indic Dialects<br>• Extracts Train # & Station Code<br>• Normalizes Intent Schema"]
+        A2["⚙️ AGENT 2: MCP Tool Retriever<br>• Connects to Local FastMCP Server<br>• Routes Structured Tool Requests<br>• Handles Offline Resiliency"]
+        A3["🗣️ AGENT 3: Vernacular Concierge<br>• Synthesizes Raw JSON Data<br>• Formats Culturally Polite Tone<br>• Outputs in Target Language"]
     end
 
     A1 -->|Normalized JSON Schema| A2
-    A2 -->|Tool Call: get_live_train_status('12301')| M[🛠️ FastMCP Server<br>YatraSaarthi_Transit_Engine] ::: mcp
-    M <-->|Reads Offline JSON Store| DB[(📁 yatra_saarthi_db.json<br>10 Trains, 8 Stations, Alerts)] ::: db
+    A2 -->|"Tool Call: get_live_train_status('12301')"| M["🛠️ FastMCP Server<br>YatraSaarthi_Transit_Engine"]
+    M <-->|Reads Offline JSON Store| DB[("📁 yatra_saarthi_db.json<br>10 Trains, 8 Stations, Alerts")]
     M -->|Structured Tool Result| A2
     A2 -->|Raw Transit Payload| A3
-    A3 -->|Localized Response<br>'आपकी ट्रेन हावड़ा राजधानी इलाहाबाद में है।'| U
+    A3 -->|"Localized Response<br>'आपकी ट्रेन हावड़ा राजधानी इलाहाबाद में है।'"| U
+
+    class U user;
+    class A1,A2,A3 agent;
+    class M mcp;
+    class DB db;
 ```
 
 ### Roles of the 3 Agents:
