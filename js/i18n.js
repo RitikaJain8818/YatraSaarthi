@@ -15,7 +15,7 @@ const YS_I18N = {
         nudge_cab: "🚕 Book Cab",
         nudge_delay: "⏱ Delay Alerts",
         nudge_food: "🍱 Order Food",
-        not_found: "I'm sorry, I couldn't find information for that train. Please verify the train number and try again.",
+        not_found: "I couldn't find that train number in our offline demo database. Please try one of our 10 demo trains: 12301 (Rajdhani), 12932 (Double Decker), 12951 (Mumbai Rajdhani), 12124 (Deccan Queen), 12215 (Garibrath), 12627, 12622, 12859, 12723, or 12839.",
         unknown: "I can help you with train status queries. Please include a valid train number (e.g., 12932, 12215, 12301, 12951, or 12622).",
         current: "Current",
         next: "Next Stop",

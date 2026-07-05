@@ -17,6 +17,13 @@ class VernacularConcierge:
         print(f"[VERNACULAR CONCIERGE] Drafting final response in '{target_language}'...")
         
         if "error" in raw_mcp_data:
+            err_text = raw_mcp_data["error"]
+            if "demo train" in err_text.lower() or "not in our" in err_text.lower() or "not present" in err_text.lower() or "not found" in err_text.lower():
+                if target_language == "hi":
+                    return "माफ कीजिए, यह ट्रेन नंबर उपलब्ध नहीं है। बिना API की के ऑफलाइन डेमो के लिए कृपया हमारे 10 डेमो ट्रेनों में से किसी एक का प्रयास करें: 12301 (राजधानी), 12932 (डबल डेकर), 12951 (मुंबई राजधानी), 12124 (डेक्कन क्वीन), 12215 (गरीबरथ), 12627, 12622, 12859, 12723, या 12839।"
+                elif target_language == "mr":
+                    return "माफ करा, हा ट्रेन क्रमांक उपलब्ध नाही. ऑफलाइन डेमोसाठी कृपया आमच्या 10 डेमो ट्रेनपैकी एक वापरून पहा: 12301, 12932, 12951, 12124, 12215, 12627, 12622, 12859, 12723, किंवा 12839."
+                return err_text
             error_msgs = {
                 "hi": "माफ कीजिए, मुझे यह जानकारी नहीं मिल पाई।",
                 "mr": "माफ करा, मला ही माहिती मिळाली नाही.",

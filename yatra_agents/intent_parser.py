@@ -7,6 +7,7 @@ and railway station codes.
 """
 
 import json
+import re
 
 class IntentParser:
     def __init__(self, config):
@@ -49,6 +50,11 @@ Output ONLY a valid JSON object without markdown fences or extra text."""
                 extracted_data["train_number"] = train
                 break
 
+        if not extracted_data["train_number"]:
+            match = re.search(r'\b\d{4,5}\b', user_query)
+            if match:
+                extracted_data["train_number"] = match.group(0)
+
         for code, keywords in self.config.station_keywords.items():
             if any(kw in user_query_lower for kw in keywords):
                 extracted_data["station_code"] = code
@@ -59,6 +65,7 @@ Output ONLY a valid JSON object without markdown fences or extra text."""
         cab_keywords = ["cab", "taxi", "ola", "uber", "ride", "transport"]
         platform_keywords = ["platform", "which platform", "konsa platform"]
         route_keywords = ["route", "stops", "stations", "via"]
+        status_keywords = ["where", "status", "running", "kaha", "kahan", "location", "track", "phochi", "pohchli", "pohchali", "kute", "kothe", "engirukku", "ekada", "kothay", "is train"]
 
         if any(k in user_query_lower for k in delay_keywords):
             extracted_data["intent"] = "delay_alerts"
@@ -70,7 +77,7 @@ Output ONLY a valid JSON object without markdown fences or extra text."""
             extracted_data["intent"] = "platform_info"
         elif any(k in user_query_lower for k in route_keywords):
             extracted_data["intent"] = "train_route"
-        elif extracted_data["train_number"]:
+        elif extracted_data["train_number"] or any(k in user_query_lower for k in status_keywords):
             extracted_data["intent"] = "live_status"
             
         print(f"[INTENT PARSER] Structured Output: {extracted_data}")

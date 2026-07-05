@@ -94,7 +94,7 @@ class TransitRetriever:
                         "next_stop": record.get("next_stop", "N/A")
                     }
                 else:
-                    mcp_response = {"error": "Train not found."}
+                    mcp_response = {"error": f"Train {train_id} is not present in our offline demo database. Please query one of our verified demo trains: 12301, 12932, 12951, 12124, 12215, 12627, 12622, 12859, 12723, or 12839.", "intent": intent}
 
             elif intent == "platform_info":
                 if not train_id:
@@ -111,7 +111,7 @@ class TransitRetriever:
                         "current_station": record["current_station"]
                     }
                 else:
-                    mcp_response = {"error": "Train not found."}
+                    mcp_response = {"error": f"Train {train_id} is not present in our offline demo database. Please query one of our verified demo trains: 12301, 12932, 12951, 12124, 12215, 12627, 12622, 12859, 12723, or 12839.", "intent": intent}
 
             elif intent == "delay_alerts":
                 alerts = mock_db.get("delay_alerts", [])

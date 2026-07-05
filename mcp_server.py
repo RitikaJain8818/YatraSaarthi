@@ -88,7 +88,7 @@ def get_live_train_status(train_number: str) -> str:
         })
     else:
         return json.dumps({
-            "error": f"Train {train_number} not found in database. Ask user to verify the number."
+            "error": f"Train {train_number} is not in our offline demo database. Please query one of our verified demo trains: 12301 (Rajdhani), 12932 (Double Decker), 12951 (Mumbai Rajdhani), 12124 (Deccan Queen), 12215 (Garibrath), 12627 (Karnataka Exp), 12622 (Tamil Nadu Exp), 12859 (Gitanjali), 12723 (Telangana Exp), or 12839 (Chennai Mail)."
         })
 
 
@@ -116,7 +116,7 @@ def get_platform_info(train_number: str) -> str:
         })
     else:
         return json.dumps({
-            "error": f"Train {train_number} not found. Please verify the train number."
+            "error": f"Train {train_number} is not in our offline demo database. Please query one of our verified demo trains: 12301, 12932, 12951, 12124, 12215, 12627, 12622, 12859, 12723, or 12839."
         })
 
 
