@@ -213,6 +213,29 @@ function addAIMessage(html) {
 //  TRAIN STATUS CARD RENDERING
 // ======================================================
 
+/**
+ * Translates English status strings into the selected language.
+ * Train names and station codes remain in English (they are proper nouns / official IRCTC identifiers),
+ * but running status and risk labels are localized for genuine multilingual UX.
+ */
+function localizeStatus(statusText) {
+    if (currentLang === 'en') return statusText;
+    const statusMap = {
+        hi: { 'On Time': 'समय पर', 'Running Late by': 'देरी से चल रही है,', 'mins': 'मिनट', 'Low': 'कम', 'Medium': 'मध्यम', 'High': 'अधिक' },
+        mr: { 'On Time': 'वेळेवर', 'Running Late by': 'उशिरा चालू आहे,', 'mins': 'मिनिटे', 'Low': 'कमी', 'Medium': 'मध्यम', 'High': 'जास्त' },
+        ta: { 'On Time': 'நேரத்தில்', 'Running Late by': 'தாமதமாக இயங்குகிறது,', 'mins': 'நிமிடங்கள்', 'Low': 'குறைவு', 'Medium': 'நடுத்தரம்', 'High': 'அதிகம்' },
+        te: { 'On Time': 'సమయానికి', 'Running Late by': 'ఆలస్యంగా నడుస్తోంది,', 'mins': 'నిమిషాలు', 'Low': 'తక్కువ', 'Medium': 'మధ్యస్థం', 'High': 'ఎక్కువ' },
+        bn: { 'On Time': 'সময়মতো', 'Running Late by': 'দেরিতে চলছে,', 'mins': 'মিনিট', 'Low': 'কম', 'Medium': 'মাঝারি', 'High': 'বেশি' }
+    };
+    const map = statusMap[currentLang];
+    if (!map) return statusText;
+    let result = statusText;
+    for (const [eng, local] of Object.entries(map)) {
+        result = result.replace(new RegExp(eng, 'gi'), local);
+    }
+    return result;
+}
+
 function addTrainCard(train, trainNum) {
     const t = YS_I18N[currentLang] || YS_I18N.en;
     const chatArea = getDOM('chat-area');
@@ -222,6 +245,14 @@ function addTrainCard(train, trainNum) {
     let badgeClass = 'ontime';
     if (statusClass === 'late') badgeClass = 'late';
     if (statusClass === 'critical') badgeClass = 'critical';
+
+    // Localize dynamic data values
+    const localStatus = localizeStatus(train.status);
+    const localCancel = localizeStatus(train.probability_cancel);
+
+    // Wrap in msg-row ai container so it persists in chat history correctly
+    const row = document.createElement('div');
+    row.className = 'msg-row ai';
 
     const card = document.createElement('div');
     card.className = `train-card status-${statusClass}`;
@@ -242,7 +273,7 @@ function addTrainCard(train, trainNum) {
             <div class="train-card-row">
                 <span class="row-icon">⏱</span>
                 <span class="row-label">${t.status_label}</span>
-                <span class="status-badge ${badgeClass}">${escapeHTML(train.status)}</span>
+                <span class="status-badge ${badgeClass}">${escapeHTML(localStatus)}</span>
             </div>
             <div class="train-card-row">
                 <span class="row-icon">➡️</span>
@@ -256,11 +287,12 @@ function addTrainCard(train, trainNum) {
             </div>
             <div class="cancel-risk">
                 <span class="row-icon">⚠️</span>
-                ${t.cancel_risk}: <strong>${escapeHTML(train.probability_cancel)}</strong>
+                ${t.cancel_risk}: <strong>${escapeHTML(localCancel)}</strong>
             </div>
         </div>
     `;
-    chatArea.appendChild(card);
+    row.appendChild(card);
+    chatArea.appendChild(row);
     scrollToBottom();
 }
 
@@ -363,14 +395,17 @@ function showDelayAlerts() {
     const t = YS_I18N[currentLang] || YS_I18N.en;
     let html = `<strong>${t.delay_title}</strong><br><br>`;
 
+    const affectedLabel = { en: 'Affected', hi: 'प्रभावित', mr: 'प्रभावित', ta: 'பாதிக்கப்பட்டவை', te: 'ప్రభావితం', bn: 'আক্ଋান্ত' };
+    const label = affectedLabel[currentLang] || 'Affected';
+
     if (!YS_DELAY_ALERTS || YS_DELAY_ALERTS.length === 0) {
         html += t.no_delays;
     } else {
         YS_DELAY_ALERTS.forEach(alert => {
             const severityIcon = alert.severity === 'critical' ? '🔴' : alert.severity === 'warning' ? '🟡' : '🔵';
             html += `${severityIcon} <strong>${escapeHTML(alert.region)}</strong><br>`;
-            html += `${escapeHTML(alert.message)}<br>`;
-            html += `<span style="font-size:0.72rem;color:#888;">Affected: ${alert.trains.join(', ')}</span><br><br>`;
+            html += `${escapeHTML(localizeStatus(alert.message))}<br>`;
+            html += `<span style="font-size:0.72rem;color:#888;">${label}: ${alert.trains.join(', ')}</span><br><br>`;
         });
     }
 
@@ -387,7 +422,15 @@ function showFoodOptions(stationCode) {
     station.food.forEach(f => {
         html += `• ${escapeHTML(f)}<br>`;
     });
-    html += `<br><span style="font-size:0.78rem;">📱 Order via IRCTC e-Catering or visit stalls at the station.</span>`;
+    const irctcTip = {
+        en: '📱 Order via IRCTC e-Catering or visit stalls at the station.',
+        hi: '📱 IRCTC e-Catering से ऑर्डर करें या स्टेशन पर स्टॉल पर जाएं।',
+        mr: '📱 IRCTC e-Catering वरून ऑर्डर करा किंवा स्टेशनवर स्टॉलला भेट द्या.',
+        ta: '📱 IRCTC e-Catering மூலம் ஆர்டர் செய்யவும் அல்லது நிலையத்தில் கடைகளுக்கு செல்லவும்.',
+        te: '📱 IRCTC e-Catering ద్వారా ఆర్డర్ చేయండి లేదా స్టేషన్‌లో స్టాల్‌కు వెళ్ళండి.',
+        bn: '📱 IRCTC e-Catering থেকে অর্ডার করুন বা স্টেশনের স্টলে যান।'
+    };
+    html += `<br><span style="font-size:0.78rem;">${irctcTip[currentLang] || irctcTip.en}</span>`;
 
     addAIMessage(html);
     renderNudges();
